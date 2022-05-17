@@ -1,0 +1,41 @@
+TAD Expreso Libre
+- int CUIT
+- String Nombre
+- ArrayList <Paquete> Carga
+- ArrayList <Transporte> flota
+- Deposito depo
+
+Interfaz
++ void agregarTransporte (Transporte t1) 	//Agrega un transporte a la lista de vehiculos disponibles de la empresa
++ void asignarDestino (Transporte t1, Carga c)  //Asigna al transporte elegido el desatino de la carga a enviar
++ int cargarTransporte (Transporte t1, Carga c) // Asigna la carga a un transporte con su peso, volumen y si necesita frio
+
+TAD Deposito
+- int CapacidadMaxima
+- boolean refrigerado
+- ArrayList <Paquete> Inventario
+Interfaz 
++ boolean incorporar (Paquete p1) //Incorpora un paquete al inventario del deposito
+
+TAD Destino
+- int distancia
+- Sting nombre
+
+TAD Transportes
+- int id
+- int pesoMax
+- int volumenMax
+- boolean refrigerado
+- int costoPorKM
+- Destino destino
+Interfaz
++ void iniciarViaje (Destino d)   //Indica a un transporte iniciar su viaje seteando su destino
++ void finalizarViaje () //Indica a un transporte finalizar su viaje
++ Boolean estaVacio()    //Verifica que un transporte no este cargado
++ double calcularCostoViaje (Destino d) //Calcula el costo del envio dependiendo del tipo de transporte
+
+TAD Paquete
+- int peso
+- int volumen
+- Destino destino
+- boolean necesitaFrio
