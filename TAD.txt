@@ -16,6 +16,7 @@ TAD Deposito
 - ArrayList <Paquete> Inventario
 Interfaz 
 + boolean incorporar (Paquete p1) //Incorpora un paquete al inventario del deposito
++ void retirar (Paquete p1) //retira un paquete del inventario del deposito cuando es cargado en el transporte
 
 TAD Destino
 - int distancia
