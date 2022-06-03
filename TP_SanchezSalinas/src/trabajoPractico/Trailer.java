@@ -12,13 +12,18 @@ public class Trailer extends Transporte {
 
 	public double calcularCostoViaje() {
 		
-		double costoFinal;
-		return costoFinal = (dest.getDistancia() * costoKM) + seguroCarga;
+		return (dest.getDistancia() * costoKM) + seguroCarga;
 		
 	}
 
 	public void asignarDestino(Destino dest) {
 		this.dest = dest;
+	}
+
+
+	@Override
+	public String tipoDeTransporte() {
+		return "Trailer";
 	}
 
 }

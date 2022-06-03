@@ -1,6 +1,7 @@
 package trabajoPractico;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class Empresa {
 	private String cuit;
@@ -19,8 +20,12 @@ public class Empresa {
 	}
 
 	public void agregarDestino(String ubicacion, int distancia) {
-		Destino d = new Destino(ubicacion, distancia);
-		this.destinos.put(ubicacion, d);
+		if (!this.destinos.containsKey(ubicacion)) {
+			Destino d = new Destino(ubicacion, distancia);
+			this.destinos.put(ubicacion, d);
+		} else {
+			throw new RuntimeException("El destino ya se encuentra agregado.");
+		}
 	}
 
 	public void agregarTrailer(String patente, double cargaMax, double capacidadMax, boolean refrigerado,
@@ -31,8 +36,8 @@ public class Empresa {
 
 	public void agregarMegaTrailer(String patente, double cargaMax, double capacidadMax, boolean refrigerado,
 			double costoKM, double seguroCarga, double costoFijo, double costoComida) {
-		MegaTrailer megaTrailer = new MegaTrailer(patente, cargaMax, capacidadMax, refrigerado, costoKM, null, seguroCarga,
-				costoFijo, costoComida);
+		MegaTrailer megaTrailer = new MegaTrailer(patente, cargaMax, capacidadMax, refrigerado, costoKM, null,
+				seguroCarga, costoFijo, costoComida);
 		this.transportes.put(patente, megaTrailer);
 	}
 
@@ -42,39 +47,68 @@ public class Empresa {
 		this.transportes.put(patente, flete);
 	}
 
-	
-	public double obtenerCostoViaje (String patente) {
+	public double obtenerCostoViaje(String patente) {
 		double costoViaje;
 		costoViaje = transportes.get(patente).calcularCostoViaje();
 		return costoViaje;
 	}
-	
+
 	public void asignarDestino(String patente, String destino) {
 		transportes.get(patente).asignarDestino(destinos.get(destino));
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Empresa: " + nombre + "\nCUIT: " + cuit + "\nCantidad de vehiculos: " + transportes.size();
 	}
 
-	
-	public void incorporarPaquete(String destino, double peso, double volumen, boolean refrigerado) {
-		Paquete p = new Paquete(destino, peso, volumen, refrigerado);
+	public boolean incorporarPaquete(String destino, double peso, double volumen, boolean refrigerado) {
+		Destino destPaquete = new Destino();
+		destPaquete = destinos.get(destino);
+		Paquete p = new Paquete(destPaquete, peso, volumen, refrigerado);
 		if (p.esRefrigerado()) {
-			this.depoRefrigerado.incorporar(p);
+			return this.depoRefrigerado.incorporar(p);
 		} else {
-			this.depoNoRefrigerado.incorporar(p);
+			return this.depoNoRefrigerado.incorporar(p);
 		}
 
 	}
-	
+
 	public String mostrarInventarioRefrigerado() {
 		return depoRefrigerado.mostrarInventario();
 	}
-	
+
 	public String mostrarInventarioNoRefrigerado() {
 		return depoNoRefrigerado.mostrarInventario();
+	}
+
+	public void iniciarViaje(String patente) {
+		transportes.get(patente).iniciarViaje();
+
+	}
+
+	public void finalizarViaje(String patente) {
+		transportes.get(patente).finalizarViaje();
+
+	}
+
+	public double cargarTransporte(String patente) {
+		if (transportes.get(patente).esRefrigerado()) {
+			return transportes.get(patente).cargar(depoRefrigerado);
+		} else {
+			return transportes.get(patente).cargar(depoNoRefrigerado);
+		}
+	}
+
+	public String obtenerTransporteIgual(String patente) {
+		for (Entry<String, Transporte> t : transportes.entrySet()) {
+			if (transportes.get(patente).getDest() == t.getValue().getDest()
+					&& transportes.get(patente).getCargaActual() == t.getValue().getCargaActual()
+					&& transportes.get(patente).tipoDeTransporte() == t.getValue().tipoDeTransporte() && transportes.get(patente).getId() != t.getValue().getId()) {
+				return t.getKey();
+			}
+		}
+		return null;
 	}
 
 }

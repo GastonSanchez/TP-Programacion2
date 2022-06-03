@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Deposito {
 
-	private int capacidad;
+	private double capacidad;
 	private boolean refrigerado;
 	private ArrayList <Paquete> inventario = new ArrayList <Paquete>();
 	private double cargaActual;
@@ -26,6 +26,11 @@ public class Deposito {
 	public String mostrarInventario () {
 		return "Carga actual: "+ cargaActual + "\nInventario:" + this.inventario.toString();
 	}
+
+	public ArrayList<Paquete> getInventario() {
+		return inventario;
+	}
+	
 	
 	
 }

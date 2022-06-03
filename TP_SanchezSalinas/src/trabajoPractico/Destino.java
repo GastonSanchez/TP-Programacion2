@@ -13,6 +13,10 @@ public class Destino {
 	public int getDistancia() {
 		return distancia;
 	}
+
+	public Destino() {
+		super();
+	}
 	
 	
 }

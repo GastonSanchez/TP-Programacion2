@@ -2,12 +2,12 @@ package trabajoPractico;
 
 public class Paquete {
 	
-	private String destino;
+	private Destino destino;
 	private double peso;
 	private double volumen;
 	private boolean refrigerado;
 
-	public Paquete(String destino, double peso, double volumen, boolean refrigerado) {
+	public Paquete(Destino destino, double peso, double volumen, boolean refrigerado) {
 		this.peso = peso;
 		this.volumen = volumen;
 		this.destino = destino;
@@ -28,6 +28,11 @@ public class Paquete {
 	public String toString() {
 		return "Destino:" + destino + ", Peso:" + peso + ", Volumen:" + volumen + "\n";
 	}
+
+	public Destino getDestino() {
+		return destino;
+	}
+	
 	
 	
 }

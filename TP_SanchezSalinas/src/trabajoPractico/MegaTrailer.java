@@ -22,5 +22,10 @@ public class MegaTrailer extends Transporte {
 	public void asignarDestino(Destino dest) {
 		this.dest = dest;
 	}
+
+	@Override
+	public String tipoDeTransporte() {
+		return "MegaTrailer";
+	}
 	
 }
